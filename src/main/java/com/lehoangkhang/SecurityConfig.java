@@ -18,8 +18,10 @@ public class SecurityConfig {
 	@SuppressWarnings("deprecation")
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
-				.authorizeRequests(auth -> auth.requestMatchers("/*").permitAll().requestMatchers("/admin/**")
-						.hasAuthority("Manager").anyRequest().authenticated())
+				.authorizeRequests(auth -> auth.requestMatchers("/*").permitAll()
+//						.requestMatchers("/admin/**").hasAuthority("Manager")
+						.requestMatchers("/admin/**").permitAll()
+						.anyRequest().authenticated())
 				.formLogin(login -> login.loginPage("/logon").loginProcessingUrl("/logon").usernameParameter("username")
 						.passwordParameter("password").defaultSuccessUrl("/admin", true))
 				.logout(logout -> logout.logoutUrl("/admin-logout").logoutSuccessUrl("/logon") );

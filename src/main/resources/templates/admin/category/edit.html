@@ -36,6 +36,13 @@
 						</div>
 						<form role="form"  method="post" th:action="@{/admin/category/add/save}" th:object="${category}">
 							<div class="box-body">
+								
+								<div class="form-group">
+                                    <label for="inputCategoryId">Category ID: </label> <input
+                                        type="text" class="form-control" id="inputCategoryId"
+                                        placeholder="ID của danh mục" th:field="*{id}" readonly>
+                                 </div>
+							
 								<div class="form-group">
 									<label for="inputCategoryName">Category name: </label> <input
 										type="text" class="form-control" id="inputCategoryName"
@@ -67,7 +74,7 @@
 							</div>
 
 							<div class="box-footer">
-								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-primary">Update</button>
 							</div>
 						</form>
 					</div>
