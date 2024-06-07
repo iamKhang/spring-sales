@@ -1,10 +1,13 @@
 package com.lehoangkhang.models;
 
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,13 +29,15 @@ public class Category {
     private Boolean categoryStatus;
 	@Column(name = "description")
 	private String description;
+	
+	@OneToMany(mappedBy = "category")
+	private Set<Product> products;
+	
 	public Category(Integer id, String categoryName, Boolean categoryStatus) {
 		super();
 		this.id = id;
 		this.categoryName = categoryName;
 		this.categoryStatus = categoryStatus;
 	}
-	
-	
 	
 }
