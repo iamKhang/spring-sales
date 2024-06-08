@@ -1,8 +1,7 @@
 package com.lehoangkhang.controllers.admin;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.lehoangkhang.models.Category;
 import com.lehoangkhang.services.CategoryService;
@@ -23,15 +23,20 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@GetMapping("")
-	public String index(Model model, @Param("categoryName") String categoryName) {
-		List<Category> categories = null;
+	public String index(Model model, @Param("categoryName") String categoryName,
+			@RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo) {
+			
+		Page<Category> categories  = null;
 		if (categoryName != null) {
-			categories = categoryService.searchCategory(categoryName);
+			categories = categoryService.searchCategory(categoryName, pageNo);
 			model.addAttribute("categoryName", categoryName);
-		} else {
-			categories = categoryService.getAllCategory();
+		} 
+		else {
+			categories = categoryService.getAll(pageNo);
 		}
 		
+		model.addAttribute("totalPages", categories.getTotalPages());
+		model.addAttribute("currentPage", pageNo);
 		model.addAttribute("categories", categories);
 		return "admin/category/index";
 	}

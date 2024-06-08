@@ -39,19 +39,20 @@
 					</div>
 
 					<div class="box-body">
-					
-					<form action="#" method="get">
-					<div class="input-group input-group-sm hidden-xs"
-						style="width: 150px;">
-						<input type="text" name="categoryName" th:value="*{categoryName}"
-							class="form-control pull-right" placeholder="Search">
-						<div class="input-group-btn">
-							<button type="submit" class="btn btn-default">
-								<i class="fa fa-search"></i>
-							</button>
-						</div>
-					</div>
-					</form>
+
+						<form action="#" method="get">
+							<div class="input-group input-group-sm hidden-xs"
+								style="width: 150px;">
+								<input type="text" name="categoryName"
+									th:value="*{categoryName}" class="form-control pull-right"
+									placeholder="Search">
+								<div class="input-group-btn">
+									<button type="submit" class="btn btn-default">
+										<i class="fa fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</form>
 						<table class="table table-bordered">
 							<tbody>
 								<tr>
@@ -81,11 +82,19 @@
 
 					<div class="box-footer clearfix">
 						<ul class="pagination pagination-sm no-margin pull-right">
-							<li><a href="#">«</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">»</a></li>
+							<li>
+								<a th:if="${currentPage > 1}" th:href="@{${'/admin/category?pageNo=' + (currentPage - 1)}}" aria-label="Previous">«</a>
+							</li>
+
+							<li th:each="i : ${#numbers.sequence(1, totalPages)}"
+								th:class="${i} == ${currentPage} ? 'active'">
+								<a th:href="@{${'/admin/category?pageNo=' + i}}" th:text="${i}">1</a>
+							</li>
+							
+							<li>
+								<a th:if="${currentPage < totalPages}" th:href="@{${'/admin/category?pageNo=' + (currentPage + 1)}}" aria-label="Next">»</a>
+							</li>
+						
 						</ul>
 					</div>
 				</div>
