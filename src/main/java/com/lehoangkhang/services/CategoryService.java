@@ -10,4 +10,6 @@ public interface CategoryService {
 	Boolean updateCategory(Category category);
 	Boolean deleteCategory(Integer id);
 	Category findCategoryById(Integer id);
+	
+	List<Category> searchCategory(String name);
 }

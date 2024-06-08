@@ -59,4 +59,10 @@ public class CategoryServiceImplt implements CategoryService {
 		return categoryRepository.findById(id).get();
 	}
 
+	@Override
+	public List<Category> searchCategory(String name) {
+		
+		return categoryRepository.findByName(name);
+	}
+
 }

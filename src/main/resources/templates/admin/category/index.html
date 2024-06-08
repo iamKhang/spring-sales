@@ -34,10 +34,24 @@
 				<div class="box">
 					<div class="box-header with-border">
 						<h3 class="box-title">Danh sách danh mục</h3>
-						<a href="/admin/category/add" class="btn btn-primary pull-right">Thêm mới</a>
+						<a href="/admin/category/add" class="btn btn-primary pull-right">Thêm
+							mới</a>
 					</div>
 
 					<div class="box-body">
+					
+					<form action="#" method="get">
+					<div class="input-group input-group-sm hidden-xs"
+						style="width: 150px;">
+						<input type="text" name="categoryName" th:value="*{categoryName}"
+							class="form-control pull-right" placeholder="Search">
+						<div class="input-group-btn">
+							<button type="submit" class="btn btn-default">
+								<i class="fa fa-search"></i>
+							</button>
+						</div>
+					</div>
+					</form>
 						<table class="table table-bordered">
 							<tbody>
 								<tr>
@@ -50,14 +64,15 @@
 								<tr th:each="category : ${categories}">
 									<td th:text="${category.id}">1</td>
 									<td th:text="${category.categoryName}">Category Name</td>
-									<td th:text="${category.description}">Description</td>	
-									<td>
-										<span th:utext="${category.categoryStatus} ? '<span class=\'label label-success\'>Active</span>' : '<span class=\'label label-danger\'>Inactive</span>'"></span>
+									<td th:text="${category.description}">Description</td>
+									<td><span
+										th:utext="${category.categoryStatus} ? '<span class=\'label label-success\'>Active</span>' : '<span class=\'label label-danger\'>Inactive</span>'"></span>
 									</td>
-									<td class="flex">
-										<a th:href="@{/admin/category/edit/{id}(id=${category.id})}" class="btn btn-primary btn-xs">Edit</a>
-										<a th:href="@{/admin/category/delete/{id}(id=${category.id})}" class="btn btn-danger btn-xs">Delete</a>
-									</td>
+									<td class="flex"><a
+										th:href="@{/admin/category/edit/{id}(id=${category.id})}"
+										class="btn btn-primary btn-xs">Edit</a> <a
+										th:href="@{/admin/category/delete/{id}(id=${category.id})}"
+										class="btn btn-danger btn-xs">Delete</a></td>
 								</tr>
 
 							</tbody>

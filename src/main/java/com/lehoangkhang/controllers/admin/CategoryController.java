@@ -3,6 +3,7 @@ package com.lehoangkhang.controllers.admin;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +23,15 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@GetMapping("")
-	public String index(Model model) {
-
-		List<Category> categories = categoryService.getAllCategory();
+	public String index(Model model, @Param("categoryName") String categoryName) {
+		List<Category> categories = null;
+		if (categoryName != null) {
+			categories = categoryService.searchCategory(categoryName);
+			model.addAttribute("categoryName", categoryName);
+		} else {
+			categories = categoryService.getAllCategory();
+		}
+		
 		model.addAttribute("categories", categories);
 		return "admin/category/index";
 	}
@@ -60,4 +67,6 @@ public class CategoryController {
 		categoryService.deleteCategory(id);
 		return "redirect:/admin/category";
 	}
+	
+	
 }
